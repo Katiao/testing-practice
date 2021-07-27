@@ -1,8 +1,27 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, fireEvent } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+//https://www.w3.org/TR/wai-aria/#role_definitions
+//https://github.com/testing-library/jest-dom
+
+test("button has correct initial color", () => {
+  //render method creates virtual DOM for whatever JSX you give it. You access it with the screen global object.
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  //name is the display text
+  //find an element with a role of button and text of 'change to blue'
+  const colorButton = screen.getByRole("button", { name: "Change to blue" });
+
+  //expect the background color to be red. This is our assertion:
+  //assertion is what causes test to fail or pass. If error, test fails.
+  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+
+  //click button
+  //fireEvent will help us interact with elements in our virtual DOM
+  fireEvent.click(colorButton);
+
+  //expect the background color to be blue
+  expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
+
+  //expect the button text to be 'change to red'
+  expect(colorButton.textContent).toBe("Change to red");
 });
