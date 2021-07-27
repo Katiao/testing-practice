@@ -43,8 +43,8 @@ test("conditions after checkbox checked", () => {
   render(<App />);
 
   //get elements
-  const checkbox = screen.getByRole("checkbox");
-  const button = screen.getByRole("button");
+  const checkbox = screen.getByRole("checkbox", { name: "Disable button" });
+  const button = screen.getByRole("button", { name: "Change to blue" });
 
   //click button
   fireEvent.click(checkbox);
