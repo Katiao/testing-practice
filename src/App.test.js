@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
+import { replaceCamelWithSpaces } from "./App";
 
 //https://www.w3.org/TR/wai-aria/#role_definitions
 //https://github.com/testing-library/jest-dom
@@ -87,4 +88,17 @@ test("Clicked disabled button has gray background and reverts to blue", () => {
   // re-enable button
   fireEvent.click(checkbox);
   expect(colorButton).toHaveStyle("background-color: blue");
+});
+
+//testing particular unit function
+describe("spaces before camel-case capital letters", () => {
+  test("Works for no inner capital letters", () => {
+    expect(replaceCamelWithSpaces("Red")).toBe("Red");
+  });
+  test("Works for one inner capital letter", () => {
+    expect(replaceCamelWithSpaces("MidnightBlue")).toBe("Midnight Blue");
+  });
+  test("Works for multiple capital letters", () => {
+    expect(replaceCamelWithSpaces("MediumVioletRed")).toBe("Medium Violet Red");
+  });
 });
